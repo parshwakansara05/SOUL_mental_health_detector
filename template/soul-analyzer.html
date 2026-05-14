@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>SOUL – Well-Being Analyzer</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lalezar&amp;family=Poppins:ital,wght@0,400;0,500;0,700;0,900;1,500&amp;family=Inter:wght@900&amp;family=Impact&amp;display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #2f3060 92.048%, #15164c);
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1440px;
+      padding: 0 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    /* ── LOGO ── */
+    .logo-bar {
+      background: #698dc8;
+      width: 100%;
+      height: 147px;
+      border-radius: 0 0 50px 50px;
+      box-shadow: 0 14px 0 0 #15164c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 47px;
+      flex-shrink: 0;
+    }
+
+    .logo-bar img {
+      height: 95px;
+      object-fit: contain;
+      transition: transform 0.3s ease;
+    }
+
+    .logo-bar img:hover {
+      transform: scale(1.05);
+    }
+
+    /* ── MAIN HEADING ── */
+    .main-heading {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .main-heading h1 {
+      font-family: 'Lalezar', sans-serif;
+      font-size: 85px;
+      color: #f5f5f5;
+      text-align: center;
+      line-height: normal;
+      width: 100%;
+    }
+
+    .main-heading p {
+      font-family: 'Poppins', sans-serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 32px;
+      color: #fff;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* ── FORM CARD ── */
+    .form-card {
+      background: rgba(93, 94, 143, 0.49);
+      border-radius: 50px;
+      width: 100%;
+      padding: 26px 34px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+      flex-shrink: 0;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .form-card:hover {
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .info-banner {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .info-banner p {
+      font-family: 'Poppins', sans-serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 28px;
+      color: #fff;
+      text-align: center;
+    }
+
+    .star-y {
+      color: #ffc000;
+      font-style: normal;
+      font-weight: 900;
+    }
+
+    .star-g {
+      color: #62b79e;
+      font-style: normal;
+      font-weight: 900;
+    }
+
+    .star-p {
+      color: #ff8cb0;
+      font-style: normal;
+      font-weight: 900;
+    }
+
+    /* ── SECTION ── */
+    .section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 23px;
+      padding: 5px 0;
+    }
+
+    .section-heading {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .section-heading h2 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      font-size: 40px;
+      color: #f5f5f5;
+      text-decoration: underline;
+      text-decoration-color: rgba(105, 141, 200, 0.36);
+      text-underline-offset: 4px;
+      width: 100%;
+    }
+
+    .section-heading p {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 20px;
+      color: #fff;
+      width: 100%;
+    }
+
+    .inputs-row {
+      display: flex;
+      gap: 50px;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .input-col {
+      flex: 1 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      padding: 0 10px;
+      position: relative;
+    }
+
+    .input-col label {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 28px;
+      color: #fff;
+    }
+
+    .input-col label .req {
+      color: #ff437d;
+    }
+
+    .inputs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px 50px;
+      width: 100%;
+    }
+
+    /* ══════════════════════════════════
+       CUSTOM DROPDOWN — exact Figma spec
+       ══════════════════════════════════ */
+    .dropdown-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    /* Closed trigger */
+    .dropdown-trigger {
+      width: 100%;
+      background: rgba(161, 163, 238, 0.3);
+      border: 2px solid #15164c;
+      border-radius: 15px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      outline: none;
+      user-select: none;
+      position: relative;
+      z-index: 2;
+    }
+
+    .dropdown-trigger:hover {
+      background: rgba(161, 163, 238, 0.42);
+    }
+
+    .dropdown-wrap.open .dropdown-trigger {
+      border-radius: 15px 15px 0 0;
+      border-bottom-color: rgba(161, 163, 238, 0.3);
+    }
+
+    .trigger-text {
+      flex: 1 0 0;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: #15164c;
+      text-align: left;
+      line-height: normal;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Chevron image from Figma asset */
+    .chevron-wrap {
+      width: 12px;
+      height: 6px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.22s ease;
+    }
+
+    .chevron-wrap img {
+      width: 12px;
+      height: auto;
+      display: block;
+    }
+
+    .dropdown-wrap.open .chevron-wrap {
+      transform: rotate(180deg);
+    }
+
+    /* Options panel */
+    .dropdown-options {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(161, 163, 238, 0.8);
+      border: 2px solid #15164c;
+      border-top: none;
+      border-radius: 0 0 15px 15px;
+      z-index: 200;
+      overflow: hidden;
+    }
+
+    .dropdown-wrap.open .dropdown-options {
+      display: block;
+    }
+
+    /* Individual option row */
+    .dropdown-option {
+      width: 100%;
+      padding: 10px 10px 10px 10px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      color: #f5f5f5;
+      text-align: left;
+      background: #a1a3ee;
+      border: none;
+      border-left: 5px solid transparent;
+      cursor: pointer;
+      display: block;
+      line-height: normal;
+      transition: border-color 0.1s, background 0.1s;
+    }
+
+    .dropdown-option:hover,
+    .dropdown-option:focus {
+      border-left-color: #15164c;
+      background: rgba(131, 133, 210, 0.95);
+      outline: none;
+    }
+
+    /* ── SUBMIT BUTTON ── */
+    .submit-btn {
+      background: #62b79e;
+      border: none;
+      border-radius: 26px;
+      box-shadow: 0 7px 0 0 rgba(0, 127, 90, 0.8);
+      padding: 14px 40px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      white-space: nowrap;
+    }
+
+    .submit-btn:hover {
+      background: #71c7ae;
+      transform: translateY(-2px);
+      box-shadow: 0 9px 0 0 rgba(0, 127, 90, 0.8);
+    }
+
+    .submit-btn:active {
+      transform: translateY(4px);
+      box-shadow: 0 3px 0 0 rgba(0, 127, 90, 0.8);
+    }
+
+    /* ── ANSWER BANNER ── */
+    .answer-banner {
+      width: 100%;
+      background: linear-gradient(to right, rgba(255, 140, 176, 0.8), rgba(255, 192, 0, 0.8) 50%, rgba(98, 183, 158, 0.8));
+      border: 10px linear-gradient(to right, rgba(255, 140, 176, 0.8), rgba(255, 192, 0, 0.8) 50%, rgba(98, 183, 158, 0.8));
+      border-radius: 26px;
+      padding: 15px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+      flex-shrink: 0;
+    }
+
+    .answer-banner p {
+      font-family: 'Lalezar', sans-serif;
+      font-size: 40px;
+      font-weight: 900;
+      width: 600px;
+      height: 65px;
+      color: #fff;
+      text-align: center;
+    }
+
+    /* ── CTA BUTTON ── */
+    .cta-btn {
+      background: #ff8cb0;
+      border-radius: 26px;
+      padding: 10px 50px;
+      box-shadow: 4px 7px 0 0 #ffc000f2;
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      font-size: 36px;
+      color: #15164c;
+      text-align: center;
+      cursor: pointer;
+      letter-spacing: -0.36px;
+      align-self: center;
+      display: inline-block;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 4px 10px 0 0 rgba(255, 192, 0, 0.95);
+    }
+
+    /* ── DISCLAIMER ── */
+    .disclaimer {
+      background: rgba(75, 77, 151, 0.69);
+      border-radius: 80px;
+      box-shadow: 0 14px 0 0 #15164c;
+      width: 100%;
+      max-width: 1292px;
+      padding: 15px 43px;
+      display: flex;
+      flex-direction: column;
+      gap: 21px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .disclaimer-title {
+      font-size: 0;
+      text-align: center;
+      letter-spacing: 4.32px;
+      color: #fff;
+      width: 100%;
+    }
+
+    .disclaimer-title span {
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 900;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .disclaimer-title .dtxt {
+      font-size: 36px;
+      font-style: normal;
+      font-weight: 900;
+      font-family: 'Poppins', sans-serif;
+      color: rgba(245, 245, 245, 0.95);
+      text-decoration: underline;
+      text-decoration-color: rgba(21, 22, 76, 0.26);
+    }
+
+    .disclaimer-body {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 30px;
+      color: #fff;
+      text-align: justify;
+      list-style: disc;
+      padding-left: 45px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      padding: 100px 0 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      overflow: hidden;
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    .footer-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      font-size: clamp(100px, 26vw, 400px);
+      color: #2f3060;
+      text-align: center;
+      letter-spacing: 0.05em;
+      line-height: 0.74;
+      user-select: none;
+      margin-bottom: -0.12em;
+    }
+
+    .footer-copy {
+      position: absolute;
+      bottom: 25px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: white;
+      text-align: center;
+      letter-spacing: 14px;
+      margin-left: 14px;
+      /* visually center text */
+      text-transform: uppercase;
+      z-index: 10;
+    }
+
+    /* ── MEDIA QUERIES ── */
+    @media (max-width: 1024px) {
+      .inputs-row {
+        flex-wrap: wrap;
+        gap: 30px;
+      }
+
+      .input-col {
+        flex: 1 1 calc(50% - 15px);
+        min-width: 250px;
+      }
+
+      .inputs-grid {
+        gap: 30px;
+      }
+
+      .main-heading h1 {
+        font-size: 65px;
+      }
+
+      .main-heading p {
+        font-size: 26px;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      body,
+      html {
+        overflow-x: hidden;
+        max-width: 100vw;
+      }
+
+      .page {
+        padding: 0 15px;
+        gap: 20px;
+        overflow-x: hidden;
+        width: 100%;
+      }
+
+      .logo-bar {
+        height: 100px;
+        padding: 5px 20px;
+        border-radius: 0 0 30px 30px;
+        box-shadow: 0 8px 0 0 #15164c;
+      }
+
+      .logo-bar img {
+        height: 60px;
+      }
+
+      .main-heading h1 {
+        font-size: 40px;
+      }
+
+      .main-heading p {
+        font-size: 18px;
+      }
+
+      .form-card {
+        padding: 20px 15px;
+        gap: 30px;
+        border-radius: 30px;
+        width: 100%;
+      }
+
+      .info-banner p {
+        font-size: 16px;
+      }
+
+      .section {
+        gap: 15px;
+        width: 100%;
+      }
+
+      .section-heading h2 {
+        font-size: 24px;
+      }
+
+      .section-heading p {
+        font-size: 14px;
+      }
+
+      .inputs-row {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        flex-wrap: nowrap;
+      }
+
+      .input-col {
+        width: 100%;
+        flex: none;
+        padding: 0;
+      }
+
+      .inputs-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        width: 100%;
+      }
+
+      .input-col label {
+        font-size: 18px;
+      }
+
+      .dropdown-trigger {
+        padding: 12px 14px;
+      }
+
+      .trigger-text {
+        font-size: 14px;
+      }
+
+      .submit-btn {
+        font-size: 18px;
+        padding: 12px 30px;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .answer-banner {
+        padding: 10px;
+        border-width: 6px;
+        border-radius: 16px;
+      }
+
+      .answer-banner p {
+        font-size: 24px;
+      }
+
+      .nav-btn {
+        width: 100%;
+        max-width: 300px;
+        padding: 10px 20px;
+      }
+
+      .nav-btn p {
+        font-size: 20px;
+      }
+
+      .disclaimer {
+        padding: 15px;
+        border-radius: 30px;
+        box-shadow: 0 8px 0 0 #15164c;
+        width: 100%;
+      }
+
+      .disclaimer-title span,
+      .disclaimer-title .dtxt {
+        font-size: 20px;
+        letter-spacing: 1px;
+      }
+
+      .disclaimer-body {
+        font-size: 14px;
+        padding-left: 20px;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-heading h1 {
+        font-size: 32px;
+      }
+
+      .main-heading p {
+        font-size: 14px;
+      }
+
+      .info-banner p {
+        font-size: 12px;
+      }
+
+      .section-heading h2 {
+        font-size: 20px;
+      }
+
+      .section-heading p {
+        font-size: 12px;
+      }
+
+      .input-col label {
+        font-size: 16px;
+      }
+
+      .dropdown-trigger {
+        padding: 10px 12px;
+      }
+
+      .trigger-text {
+        font-size: 13px;
+      }
+
+      .submit-btn {
+        font-size: 16px;
+      }
+
+      .answer-banner p {
+        font-size: 20px;
+      }
+
+      .disclaimer-title span,
+      .disclaimer-title .dtxt {
+        font-size: 16px;
+      }
+
+      .disclaimer-body {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- LOGO -->
+    <div class="logo-bar">
+      <img alt="SOUL Logo" src="{{ url_for('static', filename='images/logo img.png') }}" alt="SOUL Logo" />
+    </div>
+    <!-- MAIN HEADING -->
+    <div class="main-heading">
+      <h1>Well-Being Analyzer</h1>
+      <p>Supportive AI Insights for Emotional Awareness</p>
+    </div>
+    <!-- FORM -->
+    <div class="form-card">
+      <!-- Info -->
+      <div class="info-banner">
+        <p><span class="star-y">*</span><span class="star-g">*</span><span class="star-p">*</span>Providing correct and
+          complete inputs ensures more reliable AI-based analysis<span class="star-p">*</span><span
+            class="star-g">*</span><span class="star-y">*</span></p>
+      </div>
+      <!-- 1. Demographic Information -->
+      <div class="section">
+        <div class="section-heading">
+          <h2> Demographic Information</h2>
+          <p>This section collects basic details about you. These details help us understand your background and provide
+            more accurate mental health insights.</p>
+        </div>
+        <div class="inputs-row">
+          <div class="input-col">
+            <label><span class="req">*</span>Gender</label>
+            <div class="dropdown-wrap" data-key="Gender">
+              <div aria-haspopup="listbox" class="dropdown-trigger" role="button" tabindex="0">
+                <span class="trigger-text">Select your Gender</span>
+                <span class="chevron-wrap"></span>
+              </div>
+              <div class="dropdown-options" role="listbox"><button class="dropdown-option"
+                  role="option">Male</button><button class="dropdown-option" role="option">Female</button></div>
+            </div>
+          </div>
+          <div class="input-col">
+            <label><span class="req">*</span>Occupation</label>
+            <div class="dropdown-wrap" data-key="Occupation">
+              <div aria-haspopup="listbox" class="dropdown-trigger" role="button" tabindex="0">
+                <span class="trigger-text">Select your Occupation</span>
+                <span class="chevron-wrap"></span>
+              </div>
+              <div class="dropdown-options" role="listbox"><button class="dropdown-option"
+                  role="option">Corporate</button><button class="dropdown-option" role="option">Student</button><button
+                  class="dropdown-option" role="option">Business</button><button class="dropdown-option"
+                  role="option">Housewife</button><button class="dropdown-option" role="option">Others</button></div>
+            </div>
+          </div>
+          <div class="input-col">
+            <label><span class="req">*</span>Self-Employed</label>
+            <div class="dropdown-wrap" data-key="self_employed">
+              <div aria-haspopup="listbox" class="dropdown-trigger" role="button" tabindex="0">
+                <span class="trigger-text">Are you self-employed ?</span>
+                <span class="chevron-wrap"></span>
+              </div>
+              <div class="dropdown-options" role="listbox"><button class="dropdown-option"
+                  role="option">Yes</button><button class="dropdown-option" role="option">No</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 2. Background & History -->
+      <div class="section">
+        <div class="section-heading">
+          <h2>Background &amp; History</h2>
+          <p>This section focuses on past experiences that may influence your mental health.</p>
+        </div>
+        <div class="inputs-row">
+          <div class="input-col">
+            <label><span class="req">*</span>Family_history</label>
+            <div class="dropdown-wrap" data-key="family_history">
+              <div aria-haspopup="listbox" class="dropdown-trigger" role="button" tabindex="0">
+                <span class="trigger-text">Do you have a family history of mental health issues?</span>
+                <span class="chevron-wrap"></span>
+              </div>
+              <div class="dropdown-options" role="listbox"><button class="dropdown-option"
+                  role="option">Yes</button><button class="dropdown-option" role="option">No</button></div>
+            </div>
+          </div>
+          <div class="input-col">
+            <label><span class="req">*</span>Mental_Health_History</label>
+            <div class="dropdown-wrap" data-key="Mental_Health_History">
+              <div aria-haspopup="listbox" class="dropdown-trigger" role="button" tabindex="0">
+                <span class="trigger-text">Do you had any past mental health issues ?</span>
+                <span class="chevron-wrap"></span>
+              </div>
+              <div class="dropdown-options" role="listbox"><button class="dropdown-option"
+                  role="option">Yes</button><button class="dropdown-option" role="option">No</button><button
+                  class="dropdown-option" role="option">Maybe</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 3. Lifestyle & Environment -->
+      <div class="section">
+        <div class="section-heading">
+          <h2>Lifestyle &amp; Environment</h2>
+          <p>Your daily environment plays an important role in how you feel emotionally.</p>
+        </div>
+        <div class="inputs-row">
+          <div class="input-col">
+            <label><span class="req">*</span>Days_Indoors</label>
+            <div class="dropdown-wrap" data-key="Days_Indoors">
+              <div aria-haspopup="listbox" class="dropdown-trigger" role="button" tabindex="0">
+                <span class="trigger-text">On average, how many days do you spend staying indoors ?</span>
+                <span class="chevron-wrap"></span>
+              </div>
+              <div class="dropdown-options" role="listbox">
+                <button class="dropdown-option" role="option">Go out Every day</button>
+                <button class="dropdown-option" role="option">1-14 days</button>
+                <button class="dropdown-option" role="option">15-30 days</button>
+                <button class="dropdown-option" role="option">31-60 days</button>
+                <button class="dropdown-option" role="option">More than 2 months</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 4. Mental & Emotional Indicators -->
+      <div class="section">
+        <div class="section-heading">
+          <h2>Mental &amp; Emotional Indicators</h2>
+          <p>This section focuses on how you have been feeling recently.</p>
+        </div>
+        <div class="inputs-grid">
+          <div class="input-col">
+            <label><span class="req">*</span>Growing_Stress</label>
+            <div class="dropdown-wrap" data-key="Growing_Stress">
+              <div aria-haspopup="listbox" class="dropdown-trigger" role="button" tabindex="0">
+                <span class="trigger-text">Select your current stress level</span>
+                <span class="chevron-wrap"></span>
+              </div>
+              <div class="dropdown-options" role="listbox"><button class="dropdown-option"
+                  role="option">Yes</button><button class="dropdown-option" role="option">No</button><button
+                  class="dropdown-option" role="option">Maybe</button></div>
+            </div>
+          </div>
+          <div class="input-col">
+            <label><span class="req">*</span>Mood_Swings</label>
+            <div class="dropdown-wrap" data-key="Mood_Swings">
+              <div aria-haspopup="listbox" class="dropdown-trigger" role="button" tabindex="0">
+                <span class="trigger-text">Do you experience frequent mood swings?</span>
+                <span class="chevron-wrap"></span>
+              </div>
+              <div class="dropdown-options" role="listbox"><button class="dropdown-option"
+                  role="option">High</button><button class="dropdown-option" role="option">Medium</button><button
+                  class="dropdown-option" role="option">Low</button></div>
+            </div>
+          </div>
+          <div class="input-col">
+            <label><span class="req">*</span>Changes_Habits</label>
+            <div class="dropdown-wrap" data-key="Changes_Habits">
+              <div aria-haspopup="listbox" class="dropdown-trigger" role="button" tabindex="0">
+                <span class="trigger-text">Have you noticed changes in your daily habits recently?</span>
+                <span class="chevron-wrap"></span>
+              </div>
+              <div class="dropdown-options" role="listbox"><button class="dropdown-option"
+                  role="option">Yes</button><button class="dropdown-option" role="option">No</button><button
+                  class="dropdown-option" role="option">Maybe</button></div>
+            </div>
+          </div>
+          <div class="input-col">
+            <label><span class="req">*</span>Coping_Struggles</label>
+            <div class="dropdown-wrap" data-key="Coping_Struggles">
+              <div aria-haspopup="listbox" class="dropdown-trigger" role="button" tabindex="0">
+                <span class="trigger-text">Are you finding it difficult to cope with daily challenges?</span>
+                <span class="chevron-wrap"></span>
+              </div>
+              <div class="dropdown-options" role="listbox"><button class="dropdown-option"
+                  role="option">Yes</button><button class="dropdown-option" role="option">No</button></div>
+            </div>
+          </div>
+          <div class="input-col">
+            <label><span class="req">*</span>Work/Studies_Interest</label>
+            <div class="dropdown-wrap" data-key="Work_Interest">
+              <div aria-haspopup="listbox" class="dropdown-trigger" role="button" tabindex="0">
+                <span class="trigger-text">Are you still interested in work or studies?</span>
+                <span class="chevron-wrap"></span>
+              </div>
+              <div class="dropdown-options" role="listbox"><button class="dropdown-option"
+                  role="option">Yes</button><button class="dropdown-option" role="option">No</button><button
+                  class="dropdown-option" role="option">Maybe</button></div>
+            </div>
+          </div>
+          <div class="input-col">
+            <label><span class="req">*</span>Social_Weakness</label>
+            <div class="dropdown-wrap" data-key="Social_Weakness">
+              <div aria-haspopup="listbox" class="dropdown-trigger" role="button" tabindex="0">
+                <span class="trigger-text">Do you feel uncomfortable in social situations?</span>
+                <span class="chevron-wrap"></span>
+              </div>
+              <div class="dropdown-options" role="listbox"><button class="dropdown-option"
+                  role="option">Yes</button><button class="dropdown-option" role="option">No</button><button
+                  class="dropdown-option" role="option">Maybe</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="submit-btn">START ANALYZING</button>
+    </div>
+    <!-- ANSWER BANNER -->
+    <div class="answer-banner">
+      <p>ANSWER</p>
+    </div>
+    <!-- CTA BUTTON -->
+    <div>
+      <a href="{{ url_for('home') }}" class="cta-btn" style="text-decoration: none;">Back To Home</a>
+    </div>
+    <!-- DISCLAIMER -->
+    <div class="disclaimer">
+      <p class="disclaimer-title">
+        <span class="star-y">*</span><span class="star-g">*</span><span class="star-p">*</span>
+        <span class="dtxt">Disclaimer &amp; Emergency Notice</span>
+        <span class="star-p">*</span><span class="star-g">*</span><span class="star-y">*</span>
+      </p>
+      <ul class="disclaimer-body">
+        <li>SOUL is not designed to provide medical advice, diagnosis, or crisis support.</li>
+        <li>If you are experiencing severe emotional distress or are in immediate danger, please contact a mental health
+          professional or local emergency services immediately.</li>
+      </ul>
+    </div>
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-title">SOUL</div>
+      <div class="footer-copy">&copy; &nbsp;&nbsp;PARSHWA KANSARA</div>
+    </footer>
+  </div>
+  <script>
+    const allWraps = document.querySelectorAll('.dropdown-wrap');
+
+    function closeAll(except) {
+      allWraps.forEach(w => {
+        if (w !== except) w.classList.remove('open');
+      });
+    }
+
+    allWraps.forEach(wrap => {
+      const trigger = wrap.querySelector('.dropdown-trigger');
+      const triggerText = wrap.querySelector('.trigger-text');
+      const options = wrap.querySelectorAll('.dropdown-option');
+
+      // Open / close on trigger click
+      trigger.addEventListener('click', e => {
+        e.stopPropagation();
+        const wasOpen = wrap.classList.contains('open');
+        closeAll(wrap);
+        wrap.classList.toggle('open', !wasOpen);
+      });
+
+      // Keyboard: Enter/Space to open, Escape to close
+      trigger.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.click(); }
+        if (e.key === 'Escape') wrap.classList.remove('open');
+      });
+
+      // Option selection
+      options.forEach(opt => {
+        opt.addEventListener('click', e => {
+          e.stopPropagation();
+          triggerText.textContent = opt.textContent.trim();
+          wrap.classList.remove('open');
+        });
+      });
+    });
+
+    // Click outside → close all
+    document.addEventListener('click', () => closeAll(null));
+  </script>
+  <script>
+    document.querySelector('.submit-btn').addEventListener('click', async () => {
+      const data = {};
+      const wraps = document.querySelectorAll('.dropdown-wrap[data-key]');
+      let allFilled = true;
+      wraps.forEach(wrap => {
+        const key = wrap.getAttribute('data-key');
+        const triggerText = wrap.querySelector('.trigger-text').textContent.trim();
+        // Check if selected by looking if the trigger text is one of the options
+        const options = Array.from(wrap.querySelectorAll('.dropdown-option')).map(b => b.textContent.trim());
+        if (!options.includes(triggerText)) {
+          allFilled = false;
+        } else {
+          data[key] = triggerText;
+        }
+      });
+
+      if (!allFilled) {
+        alert('Please fill out all fields correctly.');
+        return;
+      }
+
+      try {
+        const response = await fetch('/predict', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await response.json();
+        const banner = document.querySelector('.answer-banner p');
+        if (result.prediction) {
+          banner.textContent = 'Treatment Needed: ' + result.prediction;
+        } else if (result.error) {
+          banner.textContent = 'Error: ' + result.error;
+        }
+      } catch (e) {
+        console.error(e);
+        document.querySelector('.answer-banner p').textContent = 'Error occurred';
+      }
+    });
+  </script>
+</body>
+
+</html>

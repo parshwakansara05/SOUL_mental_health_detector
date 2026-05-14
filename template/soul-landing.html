@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOUL – Mental Well-Being Analyzer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600&family=Lalezar&family=Rampart+One&family=Inter:wght@900&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --navy-dark: #15164c;
+      --navy-mid: #2f3060;
+      --blue-header: #698dc8;
+      --teal: #62b79e;
+      --pink: #ff8cb0;
+      --yellow: rgba(255, 192, 0, 0.92);
+      --yellow-solid: #ffc000;
+      --purple-glass: rgba(93, 94, 143, 0.49);
+      --purple-glass2: rgba(109, 94, 143, 0.55);
+      --blue-glass: rgba(105, 141, 200, 0.79);
+      --hero-green: rgba(98, 183, 158, 0.85);
+      --disclaimer-purple: rgba(75, 77, 151, 0.69);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #2f3060 97%, #15164c 100%);
+      min-height: 100vh;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 50px;
+    }
+
+    .logo-box {
+      background: var(--blue-header);
+      padding: 7px 40px;
+      border-radius: 0 0 35px 35px;
+      box-shadow: 0 17px 0 0 var(--navy-dark);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-box img {
+      width: 260px;
+      height: 120px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 50px;
+    }
+
+    .hero-text {
+      background: var(--hero-green);
+      border-radius: 50px;
+      padding: 30px 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+      box-shadow: 0 17px 0 0 var(--navy-dark);
+    }
+
+    .hero-heading {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      font-size: 52px;
+      line-height: 1.2;
+      color: white;
+    }
+
+    .hero-tagline {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-style: italic;
+      font-size: 24px;
+      color: rgba(75, 77, 151, 0.69);
+      text-decoration: underline dotted;
+      padding: 0 10px;
+    }
+
+    .hero-subtext {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      font-size: 32px;
+      color: white;
+      line-height: 1.5;
+      padding: 0 10px;
+    }
+
+    .hero-subtext strong {
+      font-weight: 800;
+    }
+
+    .hero-badges {
+      background: rgba(93, 94, 143, 0.27);
+      border-radius: 30px;
+      padding: 5px 40px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--navy-dark);
+      text-align: center;
+      align-self: center;
+    }
+
+    .hero-badges .dot-pink {
+      color: #ff437d;
+    }
+
+    .hero-badges .dot-green {
+      color: #ffc000f2;
+    }
+
+    .cta-btn {
+      background: var(--pink);
+      border-radius: 26px;
+      padding: 10px 50px;
+      box-shadow: 4px 7px 0 0 #ffc000f2;
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      font-size: 36px;
+      color: var(--navy-dark);
+      text-align: center;
+      cursor: pointer;
+      letter-spacing: -0.36px;
+      align-self: center;
+      display: inline-block;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 4px 10px 0 0 rgba(255, 192, 0, 0.95);
+    }
+
+    .hero-image {
+      width: 471px;
+      height: 708px;
+      border-radius: 50px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 17px 0 0 var(--navy-dark);
+    }
+
+    .hero-image img {
+      width: 128%;
+      height: 100%;
+      object-fit: cover;
+      margin-left: -14%;
+    }
+
+    /* ── SECTION COMMONS ── */
+    section {
+      padding: 60px 50px;
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .section-heading h2 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      font-size: 64px;
+      color: white;
+    }
+
+    .section-heading .lalezar {
+      font-family: 'Lalezar', sans-serif;
+      font-weight: 400;
+      font-size: 85px;
+      color: #f5f5f5;
+    }
+
+    .section-heading .subtitle {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-style: italic;
+      font-size: 32px;
+      color: white;
+      margin-top: 6px;
+    }
+
+    .divider-dot {
+      width: 50px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.319);
+      border-radius: 4px;
+      margin: 12px auto 0;
+      opacity: 0.6;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      padding: 60px 50px;
+    }
+
+    .about-box {
+      background: var(--blue-glass);
+      border-radius: 50px;
+      padding: 34px 51px;
+      box-shadow: 0 17px 0 0 var(--navy-dark);
+    }
+
+    .about-box ul {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 32px;
+      color: white;
+      text-align: justify;
+      list-style: disc;
+      padding-left: 48px;
+      line-height: 1.5;
+    }
+
+    .about-box ul li {
+      margin-bottom: 28px;
+    }
+
+    /* ── OUR PURPOSE ── */
+    #purpose {
+      padding: 60px 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 43px;
+    }
+
+    .purpose-card {
+      border-radius: 50px;
+      padding: 30px 45px;
+      box-shadow: 0 17px 0 0 var(--navy-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .purpose-card.awareness {
+      background: var(--yellow);
+    }
+
+    .purpose-card.support {
+      background: var(--pink);
+    }
+
+    .purpose-card.privacy {
+      background: var(--teal);
+    }
+
+    .purpose-card h3 {
+      font-family: 'Rampart One', sans-serif;
+      font-size: 75px;
+      color: var(--navy-mid);
+      text-align: center;
+      letter-spacing: 2.25px;
+      width: 100%;
+    }
+
+    .purpose-card p {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 32px;
+      color: var(--navy-mid);
+      text-align: justify;
+      line-height: 1.5;
+      width: 100%;
+    }
+
+    .purpose-divider {
+      width: 610px;
+      height: 4px;
+      background: rgba(21, 22, 76, 0.3);
+      border-radius: 2px;
+    }
+
+    /* ── HOW SOUL WORKS ── */
+    #how {
+      padding: 60px 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr 80px 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 20px 0;
+      align-items: center;
+    }
+
+    .step-card {
+      background: var(--purple-glass);
+      border-radius: 79px;
+      padding: 20px 30px 20px;
+      box-shadow: 8px 10px 0 0 var(--navy-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .step-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .step-icon {
+      width: 75px;
+      height: 75px;
+      border-radius: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      font-size: 40px;
+      color: var(--navy-dark);
+    }
+
+    .step-icon.pink {
+      background: var(--pink);
+    }
+
+    .step-icon.yellow {
+      background: var(--yellow);
+    }
+
+    .step-icon.teal {
+      background: var(--teal);
+    }
+
+    .step-icon img {
+      width: 75px;
+      height: 75px;
+      object-fit: cover;
+    }
+
+    .step-title h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      font-size: 40px;
+      color: white;
+      text-align: center;
+      flex: 1;
+    }
+
+    .step-desc {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 200;
+      font-size: 28px;
+      color: white;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* connector arrows between steps */
+    .connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: rgba(255, 255, 255, 0.5);
+      grid-column: 2;
+    }
+
+    /* step layout positions */
+    .step-1 {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .step-2 {
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    .step-3 {
+      grid-column: 1;
+      grid-row: 3;
+    }
+
+    .conn-1 {
+      grid-column: 1 / 4;
+      grid-row: 1;
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 0;
+      pointer-events: none;
+    }
+
+    .conn-2 {
+      grid-column: 2 / 4;
+      grid-row: 3;
+      display: flex;
+      justify-content: flex-start;
+      padding-left: 150px;
+      padding-top: 0;
+      pointer-events: none;
+    }
+
+    /* ── WHY CHOOSE ── */
+    #why {
+      padding: 60px 50px;
+      display: flex;
+      gap: 49px;
+      align-items: center;
+    }
+
+    .why-image {
+      width: 540px;
+      height: 750px;
+      flex-shrink: 0;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 17px 0 0 var(--navy-dark);
+      opacity: 0.85;
+    }
+
+    .why-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .why-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .why-list {
+      background: var(--purple-glass2);
+      border-radius: 30px;
+      padding: 20px;
+      box-shadow: 0 17px 0 0 var(--navy-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .why-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    .why-bar {
+      width: 6px;
+      background: linear-gradient(to bottom, #FFC000, #62B79E);
+      border-radius: 3px;
+      align-self: stretch;
+      flex-shrink: 0;
+    }
+
+    .why-item p {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      font-size: 40px;
+      color: white;
+      line-height: 1.3;
+    }
+
+    /* ── DISCLAIMER ── */
+    #disclaimer {
+      padding: 15px 50px;
+    }
+
+    .disclaimer-box {
+      background: var(--disclaimer-purple);
+      border-radius: 80px;
+      padding: 30px 40px;
+      box-shadow: 0 17px 0 0 var(--navy-dark);
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .disclaimer-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      font-size: 36px;
+      text-align: center;
+      letter-spacing: 4px;
+      color: rgba(245, 245, 245, 0.95);
+    }
+
+    .disclaimer-title .star-yellow {
+      color: var(--yellow-solid);
+    }
+
+    .disclaimer-title .star-teal {
+      color: var(--teal);
+    }
+
+    .disclaimer-title .star-pink {
+      color: var(--pink);
+    }
+
+    .disclaimer-title .underlined {
+      text-decoration: underline solid rgba(21, 22, 76, 0.26);
+    }
+
+    .disclaimer-text {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 30px;
+      color: white;
+      text-align: justify;
+      line-height: 1.6;
+      list-style: disc;
+      padding-left: 45px;
+      max-width: 1224px;
+    }
+
+    .disclaimer-text li {
+      margin-bottom: 24px;
+    }
+
+    .disclaimer-text li:last-child {
+      margin-bottom: 0;
+    }
+
+    .disclaimer-divider {
+      width: 800px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 2px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      padding: 100px 50px 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .footer-title {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      font-size: clamp(100px, 26vw, 400px);
+      color: var(--navy-mid);
+      text-align: center;
+      letter-spacing: 0.05em;
+      line-height: 0.74;
+      user-select: none;
+      margin-bottom: -0.12em;
+    }
+
+    .footer-copy {
+      position: absolute;
+      bottom: 25px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: white;
+      text-align: center;
+      letter-spacing: 14px;
+      margin-left: 14px;
+      /* visually center text */
+      text-transform: uppercase;
+      z-index: 10;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(32px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .fade-up:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .fade-up:nth-child(2) {
+      animation-delay: 0.25s;
+    }
+
+    .fade-up:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 1200px) {
+      .hero {
+        flex-direction: column;
+      }
+
+      .hero-image {
+        width: 100%;
+        height: 400px;
+      }
+
+      #why {
+        flex-direction: column;
+      }
+
+      .why-image {
+        width: 100%;
+        height: 400px;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .step-1,
+      .step-2,
+      .step-3 {
+        grid-column: 1;
+        grid-row: auto;
+      }
+
+      .conn-1,
+      .conn-2 {
+        display: none;
+      }
+
+      .purpose-card h3 {
+        font-size: 54px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo-box">
+      <img src="{{ url_for('static', filename='images/logo img.png') }}" alt="SOUL Logo" />
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text fade-up">
+      <h1 class="hero-heading">Understand Your Mental Well-Being with SOUL</h1>
+      <p class="hero-tagline">Listening to your mind, supporting your well-being.</p>
+      <p class="hero-subtext">
+        <strong>SOUL</strong> (Supportive Observer for User Well-Being Life) is an AI-powered supportive observer
+        designed to understand emotional patterns, stress levels, and mental well-being through intelligent
+        analysis.<br /><br />
+        It helps users gain clarity about their inner state in a safe, anonymous, and non-judgmental way.
+      </p>
+      <div class="hero-badges">
+        No login required <span class="dot-pink">·</span> Anonymous <span class="dot-green">·</span> Secure
+      </div>
+      <a href="{{ url_for('analyzer') }}" class="cta-btn" style="text-decoration: none;">Try Our Analyzer</a>
+    </div>
+    <div class="hero-image fade-up">
+      <img src="{{ url_for('static', filename='images/Hero.jpeg') }}" alt="Hero visual" />
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-heading">
+      <div class="lalezar">About SOUL</div>
+      <p class="subtitle">Supportive Observer for User Well-Being Life</p>
+      <div class="divider-dot"></div>
+    </div>
+    <div class="about-box">
+      <ul>
+        <li>SOUL is an AI-powered supportive observer designed to help users understand their mental well-being through
+          intelligent analysis of emotional patterns and stress indicators.</li>
+        <li>In today's fast-paced academic and digital life, students often experience stress, anxiety, and emotional
+          overload but hesitate to seek help due to stigma or privacy concerns. SOUL addresses this gap by providing a
+          safe, anonymous, and non-judgmental platform where users can reflect on their emotional state.</li>
+        <li>By using modern AI and natural language understanding techniques, SOUL offers meaningful insights that
+          promote self-awareness and emotional clarity, while strictly prioritizing user privacy.</li>
+        <li>SOUL is not a medical diagnostic tool, but a supportive system that encourages awareness and early
+          self-reflection.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- OUR PURPOSE -->
+  <section id="purpose">
+    <div class="section-heading">
+      <h2>Our Purpose</h2>
+      <div class="divider-dot"></div>
+    </div>
+
+    <div class="purpose-card awareness">
+      <h3>AWARENESS</h3>
+      <p>SOUL assists the user in recognizing as well as understanding their emotions. Based on the message or thought
+        that the user provides, it analyses the patterns associated with emotions like stress, sadness, or calmness that
+        the user expresses. It enables the user to be more aware of their emotions in order to think about their mental
+        state.</p>
+      <div class="purpose-divider"></div>
+    </div>
+
+    <div class="purpose-card support">
+      <h3>SUPPORT</h3>
+      <p>SOUL offers supporting and non-judgmental feedback that does not label or make medical decisions for the users.
+        SOUL neither labels the users nor produces medical conclusions. Rather, it offers supporting insights that make
+        the users feel understood and listened to, promoting a positive and non-stressful approach towards emotional
+        well-being.</p>
+      <div class="purpose-divider"></div>
+    </div>
+
+    <div class="purpose-card privacy">
+      <h3>PRIVACY</h3>
+      <p>SOUL is designed to respect user privacy at all times. Users do not need to share personal details such as
+        their name or identity. All interactions are handled securely, ensuring that user data remains private and
+        protected. This allows users to express themselves freely and safely. All interactions are fully anonymous and
+        securely handled, ensuring user privacy at every step.</p>
+      <div class="purpose-divider"></div>
+    </div>
+  </section>
+
+  <!-- HOW SOUL WORKS -->
+  <section id="how">
+    <div class="section-heading">
+      <h2>HOW SOUL WORKS</h2>
+      <div class="divider-dot"></div>
+    </div>
+
+    <div class="steps-grid">
+      <!-- Step 1 -->
+      <div class="step-card step-1">
+        <div class="step-title">
+          <div class="step-icon pink">
+            <img src="{{ url_for('static', filename='images/n1.png') }}" alt="Step 1 icon" />
+          </div>
+          <h4>User Input</h4>
+        </div>
+        <p class="step-desc">Users share their thoughts or feelings in simple text, without revealing personal
+          information.</p>
+      </div>
+
+      <!-- Connector row 1 → 2 (visual arrow idea) -->
+      <div class="conn-1">
+        <img src="{{ url_for('static', filename='images/Vector1.png') }}" alt="vector1" />
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-card step-2">
+        <div class="step-title">
+          <div class="step-icon yellow">
+            <img src="{{ url_for('static', filename='images/n2.png') }}" alt="Step 2 icon" />
+          </div>
+          <h4>A.I Analysis</h4>
+        </div>
+        <p class="step-desc">AI analyzes the text to understand emotions, sentiment, and stress patterns.</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-card step-3">
+        <div class="step-title">
+          <div class="step-icon teal">
+            <img src="{{ url_for('static', filename='images/n3.png') }}" alt="Step 3 icon" />
+          </div>
+          <h4>Supportive Insights</h4>
+        </div>
+        <p class="step-desc">Users receive clear, kind feedback to help them understand their emotional state.</p>
+      </div>
+
+      <!-- Connector row 2 → 3 -->
+      <div class="conn-2">
+        <img src="{{ url_for('static', filename='images/Vector2.png') }}" alt="vector2" />
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section id="why">
+    <div class="why-image">
+      <img src="{{ url_for('static', filename='images/IMAGE.png') }}" alt="Why choose SOUL" />
+    </div>
+    <div class="why-text">
+      <div class="section-heading" style="text-align:center;">
+        <h2>WHY CHOOSE US ?</h2>
+        <div class="divider-dot"></div>
+      </div>
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-bar"></div>
+          <p>Anonymous &amp; Secure</p>
+        </div>
+        <div class="why-item">
+          <div class="why-bar"></div>
+          <p>Student-Centric Design</p>
+        </div>
+        <div class="why-item">
+          <div class="why-bar" style="align-self:stretch;"></div>
+          <p>AI-Powered Emotional Understanding</p>
+        </div>
+        <div class="why-item">
+          <div class="why-bar"></div>
+          <p>Ethical &amp; Non-Diagnostic</p>
+        </div>
+        <div class="why-item">
+          <div class="why-bar"></div>
+          <p>Simple and Accessible</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section id="disclaimer">
+    <div class="disclaimer-box">
+      <div class="disclaimer-title">
+        <span class="star-yellow">*</span><span class="star-teal">*</span><span class="star-pink">*</span>
+        <span class="underlined">Disclaimer &amp; Emergency Notice</span>
+        <span class="star-pink">*</span><span class="star-teal">*</span><span class="star-yellow">*</span>
+      </div>
+      <ul class="disclaimer-text">
+        <li>SOUL is not designed to provide medical advice, diagnosis, or crisis support.</li>
+        <li>If you are experiencing severe emotional distress or are in immediate danger, please contact a mental health
+          professional or local emergency services immediately.</li>
+      </ul>
+      <div class="disclaimer-divider"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-title">SOUL</div>
+    <div class="footer-copy">&copy; &nbsp;&nbsp;PARSHWA KANSARA</div>
+  </footer>
+
+</body>
+
+</html>
