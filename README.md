@@ -1,4 +1,4 @@
-# SOUL — Supportive Observer for User's Life
+# SOUL — Supportive Observer for User's Well Being  Life
 
 ## Overview
 
@@ -25,9 +25,7 @@ The project uses Machine Learning with a Flask backend to analyze user responses
 
 ## Frontend
 
-* HTML5
-* CSS3
-* JavaScript
+*Figma - Coverted to HTML and CSS Using MCP
 
 ## Backend
 
