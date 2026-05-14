@@ -25,7 +25,7 @@ The project uses Machine Learning with a Flask backend to analyze user responses
 
 ## Frontend
 
-*Figma - Coverted to HTML and CSS Using MCP
+* Figma - Coverted to HTML and CSS Using MCP
 
 ## Backend
 
